@@ -1,0 +1,44 @@
+.386; директива, предписывающая Ассемблеру использовать
+; набор операций для процессора 80386.
+.MODEL FLAT, STDCALL
+EXTRN ExitProcess@4:PROC; выход
+.DATA
+; Переменные
+a	dd ?
+b	dd ?
+d	dd ?
+
+; Константы
+const_0_0	 dd 0
+const_1_0	 dd 10
+const_2_0	 dd 2
+const_3_0	 dd 3
+const_4_0	 dd 4
+
+.CODE ; Сегмент кода
+MAIN PROC; Метка точки входа
+FINIT
+FILD a
+FILD const_3_0
+FISTP a
+FINIT 
+FILD b
+FILD const_1_0
+FISTP b
+FINIT 
+FILD d
+FILD const_2_0
+FILD a
+FMUL
+FILD b
+FILD const_4_0
+FMUL
+FADD
+FISTP d
+FINIT 
+
+; Выход из программы
+PUSH 0; Параметр: код выхода
+CALL ExitProcess@4
+MAIN ENDP
+END MAIN
